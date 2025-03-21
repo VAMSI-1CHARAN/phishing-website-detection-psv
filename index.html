@@ -96,6 +96,10 @@
     </div>
 
     <script>
+        function checkSafety(prediction) {
+            return prediction === "Legitimate" ? "Safe to Use" : "Phishing URL Unsafe to Use!!";
+        }
+
         function checkURL() {
             const url = document.getElementById('url').value;
             const loading = document.querySelector('.loading');
@@ -121,10 +125,10 @@
                 loading.style.display = 'none';
                 if (data.error) {
                     resultDiv.className = 'result alert alert-warning';
-                    resultDiv.textContent = `Error: ${data.error}`;
+                    resultDiv.textContent = data.error;
                 } else {
                     resultDiv.className = data.prediction.toLowerCase();
-                    resultDiv.textContent = data.prediction;
+                    resultDiv.textContent = checkSafety(data.prediction);
                 }
             })
             .catch(error => {
@@ -136,4 +140,4 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html> 
+</html>
